@@ -21,11 +21,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Pool
-  m_Shader: {fileID: -6465566751694194690, guid: ea1a794e94fffde46ba92ad337f61a91, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f714d1afa7e43df439f6142a5ea9153e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _IsWaveActive
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -57,6 +58,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_95b57c7ee8d440feb81373bdf41ca64a_Out_0_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -72,14 +77,23 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
+    - _IsActive: 0
+    - _IsContactHappened: 0
+    - _IsWaveActive: 1
+    - _LocalTime: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _WaveFrequency: 0
     - _WaveHeight: 0.1
-    - _WaveSpeed: 1
+    - _WaveSpeed: 2
+    - _WaveStrength: 0.3
+    - _WaveTime: 1.0499768
     - _WaveWidth: 10
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.33490568, g: 0.7670417, b: 1, a: 1}
+    - _Color: {r: 0.4431373, g: 0.40784317, b: 0.6627451, a: 1}
+    - _ContactPoint: {r: 3.7408035, g: -4.540756, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _WaveContactPoint: {r: 0.5, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
