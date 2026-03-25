@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class ShaderEffectOnCollision : MonoBehaviour
 {
-    public Material material;
-    public float duration = 5f;
-
     protected IActivatedMaterial materialProxy;
+
+    [Tooltip("Общий материал. Добавлять, только если эффект должен распространяться на все объекты с этим шейдером сразу.")]
+    [SerializeField]
+    private Material material;
+    [SerializeField]
+    private float duration = 5f;
 
     private float timer = 0f;
     private bool isActive = false;

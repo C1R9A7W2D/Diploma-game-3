@@ -7,7 +7,7 @@ public class InteractiveLight : FlickingLight
     private float timer = 0f;
 
     private bool isActive = false;
-    protected new MaterialPropertyBlock propertyBlock;
+    protected MaterialPropertyBlock propertyBlock;
     private SpriteRenderer spriteRenderer;
 
     void Start()

@@ -8,7 +8,7 @@ public class WaveTrigger : ShaderEffectOnCollision
     protected override void SetCharacteristics(Vector2 hitPosition)
     {
         base.SetCharacteristics(hitPosition);
-        material.SetFloat("_WaveStrength", waveStrength);
-        material.SetFloat("_WaveSpeed", waveSpeed);
+        materialProxy.SetFloat("_WaveStrength", waveStrength);
+        materialProxy.SetFloat("_WaveSpeed", waveSpeed);
     }
 }
