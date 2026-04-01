@@ -76,6 +76,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Duration: 5
     - _EnableExternalAlpha: 0
     - _IsActive: 0
     - _IsContactHappened: 0
@@ -92,7 +93,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 0.4431373, g: 0.40784317, b: 0.6627451, a: 1}
-    - _ContactPoint: {r: 0.52224016, g: -5.0547132, b: 0, a: 0}
+    - _ContactPoint: {r: -0.14643393, g: -4.574155, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _WaveContactPoint: {r: 0.5, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

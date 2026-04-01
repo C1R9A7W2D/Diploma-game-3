@@ -10,6 +10,14 @@ public class Spring : MonoBehaviour, IScoreGiver
         public Vector2 pos;
         public float radius;
 
+        public ColParams(Collider2D collider, Rigidbody2D rb = null)
+        {
+            this.rb = rb;
+            col = collider;
+            pos = collider.bounds.center;
+            radius = collider.bounds.extents.magnitude;
+        }
+
         public (Vector2 dir, float centerDist) GetDirAndDist(ColParams otherParams)
         {
             // Вектор от нашего объекта к другому
@@ -29,10 +37,10 @@ public class Spring : MonoBehaviour, IScoreGiver
 
     [Header("Настройки упругости")]
     [Tooltip("Коэффициент упругости (чем больше, тем сильнее отталкивание)")]
-    public float springConstant = 30f;
+    public float springConstant = 5f;
 
     [Tooltip("Максимальная сила, чтобы избежать слишком сильных рывков")]
-    public float maxForce = 150f;
+    public float maxForce = 20f;
 
     private const float epsilon = 0.01f;
     private Vector2 dir;
@@ -44,13 +52,7 @@ public class Spring : MonoBehaviour, IScoreGiver
     {
         Collider2D collider = GetComponent<Collider2D>();
 
-        myParams = new ColParams
-        {
-            rb = null,
-            col = collider,
-            pos = collider.bounds.center,
-            radius = collider.bounds.extents.magnitude
-        };
+        myParams = new ColParams(collider);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -58,6 +60,7 @@ public class Spring : MonoBehaviour, IScoreGiver
         ApplyRepulsion(collision);
         GiveScore();
     }
+
     private void OnCollisionStay2D(Collision2D collision) => ApplyRepulsion(collision);
 
     private void ApplyRepulsion(Collision2D collision)
@@ -79,16 +82,7 @@ public class Spring : MonoBehaviour, IScoreGiver
 
     private ColParams GetCollisionParameters(Collision2D collision)
     {
-        Collider2D collider = collision.collider;
-
-        ColParams otherParams = new ColParams
-        {
-            rb = collision.rigidbody,
-            col = collider,
-            pos = collider.bounds.center,
-            radius = collider.bounds.extents.magnitude
-        };
-
+        ColParams otherParams = new ColParams(collision.collider, collision.rigidbody);
         return otherParams;
     }
 

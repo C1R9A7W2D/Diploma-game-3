@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ShaderEffectOnCollision : MonoBehaviour
@@ -15,10 +16,21 @@ public class ShaderEffectOnCollision : MonoBehaviour
 
     private void Start()
     {
+        SetMaterialProxy();
+        SetInitialCharacteristics();
+    }
+
+    private void SetMaterialProxy()
+    {
         if (SeparateEffects())
             materialProxy = new PropertyBlockProxy(GetComponent<SpriteRenderer>());
         else
             materialProxy = new MaterialProxy(material);
+    }
+
+    protected virtual void SetInitialCharacteristics()
+    {
+        materialProxy.SetFloat("_Duration", duration);
     }
 
     private bool SeparateEffects()
@@ -31,6 +43,7 @@ public class ShaderEffectOnCollision : MonoBehaviour
         if (isActive)
         {
             UpdateTimer();
+            UpdateCharacteristics();
 
             if (timer >= duration)
             {
@@ -45,6 +58,11 @@ public class ShaderEffectOnCollision : MonoBehaviour
         materialProxy.SetLocalTime(timer);
     }
 
+    protected virtual void UpdateCharacteristics()
+    {
+        
+    }
+
     private void DeactivateShader()
     {
         isActive = false;
@@ -55,8 +73,7 @@ public class ShaderEffectOnCollision : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector2 hitPosition = GetHitPosition(collision);
-        ActivateShader(hitPosition);
+        ActivateShader(collision);
     }
 
     private static Vector2 GetHitPosition(Collision2D collision)
@@ -64,10 +81,10 @@ public class ShaderEffectOnCollision : MonoBehaviour
         return collision.GetContact(0).point;
     }
 
-    private void ActivateShader(Vector2 hitPosition)
+    private void ActivateShader(Collision2D collision)
     {
         MarkFlags();
-        SetCharacteristics(hitPosition);
+        SetCharacteristics(collision);
     }
 
     private void MarkFlags()
@@ -76,8 +93,10 @@ public class ShaderEffectOnCollision : MonoBehaviour
         timer = 0f;
     }
 
-    virtual protected void SetCharacteristics(Vector2 hitPosition)
+    virtual protected void SetCharacteristics(Collision2D collision)
     {
+        Vector2 hitPosition = GetHitPosition(collision);
+
         materialProxy.SetVector("_ContactPoint", hitPosition);
         materialProxy.SetLocalTime(0f);
         materialProxy.SetActive(1f);
