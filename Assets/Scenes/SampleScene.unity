@@ -733,10 +733,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rubber Spring (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 3577608140628598016, guid: 828bc9fedc3f12343bd7269c8a172fea, type: 3}
-      propertyPath: stretchRadius
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8232729359259344524, guid: 828bc9fedc3f12343bd7269c8a172fea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
