@@ -953,24 +953,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b00ca536388bc34f9bb2b209a91627b, type: 3}
---- !u!1 &439529829 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 644015112914910080, guid: 828bc9fedc3f12343bd7269c8a172fea, type: 3}
-  m_PrefabInstance: {fileID: 1144012440}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &439529830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439529829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 970fdb54fcb743e40bcc36a6e633fad9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpriteMeshDeformer
-  subdivisions: 20
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2312,10 +2294,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 644015112914910080, guid: 828bc9fedc3f12343bd7269c8a172fea, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 439529830}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 828bc9fedc3f12343bd7269c8a172fea, type: 3}
 --- !u!1001 &1162521818
 PrefabInstance:
