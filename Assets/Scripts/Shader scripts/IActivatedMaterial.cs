@@ -40,37 +40,37 @@ public class MaterialProxy : IActivatedMaterial
 
 public class PropertyBlockProxy : IActivatedMaterial
 {
-    SpriteRenderer spriteRenderer;
+    Renderer renderer;
     MaterialPropertyBlock propertyBlock;
 
-    public PropertyBlockProxy(SpriteRenderer spriteRenderer)
+    public PropertyBlockProxy(Renderer renderer)
     {
-        this.spriteRenderer = spriteRenderer;
+        this.renderer = renderer;
         propertyBlock = new MaterialPropertyBlock();
-        spriteRenderer.SetPropertyBlock(propertyBlock);
+        renderer.SetPropertyBlock(propertyBlock);
     }
 
     public void SetActive(float amount)
     {
         propertyBlock.SetFloat("_IsActive", amount);
-        spriteRenderer.SetPropertyBlock(propertyBlock);
+        renderer.SetPropertyBlock(propertyBlock);
     }
 
     public void SetLocalTime(float amount)
     {
         propertyBlock.SetFloat("_LocalTime", amount);
-        spriteRenderer.SetPropertyBlock(propertyBlock);
+        renderer.SetPropertyBlock(propertyBlock);
     }
 
     public void SetFloat(string propertyName, float value)
     {
         propertyBlock.SetFloat(propertyName, value);
-        spriteRenderer.SetPropertyBlock(propertyBlock);
+        renderer.SetPropertyBlock(propertyBlock);
     }
 
     public void SetVector(string propertyName, Vector4 value)
     {
         propertyBlock.SetVector(propertyName, value);
-        spriteRenderer.SetPropertyBlock(propertyBlock);
+        renderer.SetPropertyBlock(propertyBlock);
     }
 }

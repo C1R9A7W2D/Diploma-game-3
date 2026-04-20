@@ -14,13 +14,13 @@ public class ShaderEffectOnCollision : MonoBehaviour
     private float timer = 0f;
     private bool isActive = false;
 
-    private void Start()
+    protected virtual void Start()
     {
         SetMaterialProxy();
         SetInitialCharacteristics();
     }
 
-    private void SetMaterialProxy()
+    protected virtual void SetMaterialProxy()
     {
         if (SeparateEffects())
             materialProxy = new PropertyBlockProxy(GetComponent<SpriteRenderer>());
@@ -28,14 +28,14 @@ public class ShaderEffectOnCollision : MonoBehaviour
             materialProxy = new MaterialProxy(material);
     }
 
-    protected virtual void SetInitialCharacteristics()
-    {
-        materialProxy.SetFloat("_Duration", duration);
-    }
-
     private bool SeparateEffects()
     {
         return material == null;
+    }
+
+    protected virtual void SetInitialCharacteristics()
+    {
+        materialProxy.SetFloat("_Duration", duration);
     }
 
     void Update()

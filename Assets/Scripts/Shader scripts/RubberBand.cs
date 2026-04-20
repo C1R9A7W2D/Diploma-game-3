@@ -12,6 +12,23 @@ public class RubberBand : ShaderEffectOnCollision
     [SerializeField]
     private float recoverySpeed = 3f;
 
+    
+
+    protected override void SetMaterialProxy()
+    {
+        // Получаем MeshRenderer от дочернего объекта через SpriteMeshHybrid
+        SpriteMeshHybrid hybrid = GetComponent<SpriteMeshHybrid>();
+
+        if (hybrid != null && hybrid.deformationMeshRenderer != null)
+        {
+            materialProxy = new PropertyBlockProxy(hybrid.deformationMeshRenderer);
+        }
+        else
+        {
+            Debug.LogError("SpriteMeshHybrid не найден или его MeshRenderer не инициализирован!");
+        }
+    }
+
     protected override void SetInitialCharacteristics()
     {
         materialProxy.SetFloat("_StretchRadius", stretchRadius);
