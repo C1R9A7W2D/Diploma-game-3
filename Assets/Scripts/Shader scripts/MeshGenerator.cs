@@ -2,59 +2,120 @@ using UnityEngine;
 
 public class MeshGenerator : MonoBehaviour
 {
-    [SerializeField] private Texture2D spriteTexture;
-    [SerializeField] private int subdivisions = 10;
-    [SerializeField] private float pixelsPerUnit = 100f;
+    public MeshRenderer meshRenderer { get; private set; }
 
-    void Start()
+    [SerializeField] 
+    private int subdivisions = 10;
+
+    private SpriteRenderer spriteRenderer;
+    private GameObject meshChild;
+    private MeshFilter meshFilter;
+
+    void Awake()
     {
-        if (spriteTexture == null)
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (NoSprite())
         {
-            Debug.LogError("Текстура не назначена!");
+            Debug.LogError("SpriteRenderer не найден!");
             return;
         }
 
-        Mesh generatedMesh = CreateGridMesh(spriteTexture, subdivisions);
-
-        // Применяем меш к MeshFilter
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        if (meshFilter == null)
-            meshFilter = gameObject.AddComponent<MeshFilter>();
-
-        meshFilter.mesh = generatedMesh;
-
-        // Добавляем коллайдер, если нужен
-        if (GetComponent<MeshCollider>() == null)
-            gameObject.AddComponent<MeshCollider>();
+        CreateChildObject();
+        CreateMeshAndMaterial();
+        DisableSpriteRenderer();
     }
 
-    Mesh CreateGridMesh(Texture2D texture, int subdivisions)
+    private bool NoSprite()
+    {
+        return spriteRenderer == null || spriteRenderer.sprite == null;
+    }
+
+    private void CreateChildObject()
+    {
+        meshChild = new GameObject("DeformationMesh");
+        SetPositionAndScale();
+        CreateMeshFilterAndRenderer();
+    }
+
+    private void SetPositionAndScale()
+    {
+        meshChild.transform.SetParent(transform);
+        meshChild.transform.localPosition = Vector3.zero;
+        meshChild.transform.localScale = Vector3.one;
+    }
+
+    private void CreateMeshFilterAndRenderer()
+    {
+        meshFilter = meshChild.AddComponent<MeshFilter>();
+        meshRenderer = meshChild.AddComponent<MeshRenderer>();
+    }
+
+    private void CreateMeshAndMaterial()
+    {
+        meshFilter.mesh = CreateSubdividedMesh(spriteRenderer.sprite);
+        meshRenderer.material = new Material(spriteRenderer.material);
+    }
+
+    private void DisableSpriteRenderer()
+    {
+        spriteRenderer.enabled = false;
+    }
+
+    Mesh CreateSubdividedMesh(Sprite sprite)
     {
         Mesh mesh = new Mesh();
-        mesh.name = "GeneratedGridMesh";
+        mesh.name = "SubdividedSpriteMesh";
+        Vector3[] vertices;
+        Vector2[] uv;
+        CalculateVerticesAndUV(sprite, out vertices, out uv);
 
-        float width = texture.width / pixelsPerUnit;
-        float height = texture.height / pixelsPerUnit;
+        int[] triangles = TriangulateDivisions();
 
-        int vertexCount = (subdivisions + 1) * (subdivisions + 1);
-        Vector3[] vertices = new Vector3[vertexCount];
-        Vector2[] uv = new Vector2[vertexCount];
+        mesh.vertices = vertices;
+        mesh.uv = uv;
+        mesh.triangles = triangles;
+        mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
 
-        // Генерируем сетку вершин
+        return mesh;
+    }
+
+    private void CalculateVerticesAndUV(Sprite sprite, out Vector3[] vertices, out Vector2[] uv)
+    {
+        Bounds spriteBounds = sprite.bounds;
+        float width = spriteBounds.size.x;
+        float height = spriteBounds.size.y;
+
+        vertices = new Vector3[(subdivisions + 1) * (subdivisions + 1)];
+        uv = new Vector2[(subdivisions + 1) * (subdivisions + 1)];
+
+        Rect spriteRect = sprite.rect;
+        Texture2D spriteTexture = sprite.texture;
+
         for (int y = 0; y <= subdivisions; y++)
         {
             for (int x = 0; x <= subdivisions; x++)
             {
-                float xPos = (x / (float)subdivisions - 0.5f) * width;
-                float yPos = (y / (float)subdivisions - 0.5f) * height;
+                float xNorm = x / (float)subdivisions;
+                float yNorm = y / (float)subdivisions;
 
                 int index = y * (subdivisions + 1) + x;
-                vertices[index] = new Vector3(xPos, yPos, 0);
-                uv[index] = new Vector2(x / (float)subdivisions, y / (float)subdivisions);
+                vertices[index] = new Vector3(
+                    (xNorm - 0.5f) * width,
+                    (yNorm - 0.5f) * height,
+                    0
+                );
+
+                uv[index] = new Vector2(
+                    spriteRect.x / spriteTexture.width + xNorm * spriteRect.width / spriteTexture.width,
+                    spriteRect.y / spriteTexture.height + yNorm * spriteRect.height / spriteTexture.height
+                );
             }
         }
+    }
 
-        // Генерируем индексы треугольников
+    private int[] TriangulateDivisions()
+    {
         int[] triangles = new int[subdivisions * subdivisions * 6];
         int triIndex = 0;
 
@@ -67,26 +128,15 @@ public class MeshGenerator : MonoBehaviour
                 int c = a + (subdivisions + 1);
                 int d = c + 1;
 
-                // Первый треугольник
                 triangles[triIndex++] = a;
                 triangles[triIndex++] = c;
                 triangles[triIndex++] = b;
-
-                // Второй треугольник
                 triangles[triIndex++] = b;
                 triangles[triIndex++] = c;
                 triangles[triIndex++] = d;
             }
         }
 
-        mesh.vertices = vertices;
-        mesh.uv = uv;
-        mesh.triangles = triangles;
-        mesh.RecalculateNormals();
-        mesh.RecalculateBounds();
-
-        Debug.Log($"Меш создан: {vertexCount} вершин, {subdivisions * subdivisions * 2} треугольников");
-
-        return mesh;
+        return triangles;
     }
 }

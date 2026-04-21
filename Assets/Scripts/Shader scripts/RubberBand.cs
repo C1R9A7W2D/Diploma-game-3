@@ -17,11 +17,11 @@ public class RubberBand : ShaderEffectOnCollision
     protected override void SetMaterialProxy()
     {
         // Получаем MeshRenderer от дочернего объекта через SpriteMeshHybrid
-        SpriteMeshHybrid hybrid = GetComponent<SpriteMeshHybrid>();
+        MeshGenerator hybrid = GetComponent<MeshGenerator>();
 
-        if (hybrid != null && hybrid.deformationMeshRenderer != null)
+        if (hybrid != null && hybrid.meshRenderer != null)
         {
-            materialProxy = new PropertyBlockProxy(hybrid.deformationMeshRenderer);
+            materialProxy = new PropertyBlockProxy(hybrid.meshRenderer);
         }
         else
         {
