@@ -5,9 +5,9 @@ public class InteractiveLightWave : ShaderEffectOnCollision
 {
     public float waveSpeed = 2f;
 
-    protected override void SetCharacteristics(Collision2D collision)
+    protected override void SetCharacteristics(Vector2 contactPoint)
     {
-        base.SetCharacteristics(collision);
+        base.SetCharacteristics(contactPoint);
         materialProxy.SetFloat("_WaveSpeed", waveSpeed);
     }
 }
