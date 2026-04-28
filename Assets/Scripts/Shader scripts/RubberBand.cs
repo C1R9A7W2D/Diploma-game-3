@@ -41,12 +41,12 @@ public class RubberBand : ShaderEffectOnCollision
         materialProxy.SetFloat("_StretchAmount", stretchAmount);
     }
 
-    protected override void SetCharacteristics(Collision2D collision)
+    protected override void SetCharacteristics(Vector2 contactPoint)
     {
-        base.SetCharacteristics(collision);
+        base.SetCharacteristics(contactPoint);
 
         // Интенсивность натяжения зависит от скорости объекта
-        Rigidbody2D rb = collision.rigidbody;
+        Rigidbody2D rb = lastCollision.rigidbody;
 
         if (rb != null)
         {

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class ShaderEffectOnCollision : MonoBehaviour
@@ -10,6 +11,8 @@ public class ShaderEffectOnCollision : MonoBehaviour
     private Material material;
     [SerializeField]
     private float duration = 5f;
+
+    protected Collision2D lastCollision;
 
     private float timer = 0f;
     private bool isActive = false;
@@ -65,6 +68,7 @@ public class ShaderEffectOnCollision : MonoBehaviour
 
     private void DeactivateShader()
     {
+        lastCollision = null;
         isActive = false;
         timer = 0f;
         materialProxy.SetLocalTime(0f);
@@ -73,7 +77,9 @@ public class ShaderEffectOnCollision : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        ActivateShader(collision);
+        lastCollision = collision;
+        Vector2 hitPosition = GetHitPosition(collision);
+        ActivateShader(hitPosition);
     }
 
     private static Vector2 GetHitPosition(Collision2D collision)
@@ -81,10 +87,23 @@ public class ShaderEffectOnCollision : MonoBehaviour
         return collision.GetContact(0).point;
     }
 
-    private void ActivateShader(Collision2D collision)
+    public void OnMouseDown()
+    {
+        Vector2 clickPosition = GetMouseWorldPosition();
+        ActivateShader(clickPosition);
+    }
+
+    private static Vector2 GetMouseWorldPosition()
+    {
+        Vector3 mouseScreenPos = Input.mousePosition;
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+        return (Vector2)mouseWorldPos;
+    }
+
+    private void ActivateShader(Vector2 contactPoint)
     {
         MarkFlags();
-        SetCharacteristics(collision);
+        SetCharacteristics(contactPoint);
     }
 
     private void MarkFlags()
@@ -93,11 +112,9 @@ public class ShaderEffectOnCollision : MonoBehaviour
         timer = 0f;
     }
 
-    virtual protected void SetCharacteristics(Collision2D collision)
+    virtual protected void SetCharacteristics(Vector2 contactPoint)
     {
-        Vector2 hitPosition = GetHitPosition(collision);
-
-        materialProxy.SetVector("_ContactPoint", hitPosition);
+        materialProxy.SetVector("_ContactPoint", contactPoint);
         materialProxy.SetLocalTime(0f);
         materialProxy.SetActive(1f);
     }
