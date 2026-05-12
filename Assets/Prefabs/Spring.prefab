@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4892674061015781181}
   - component: {fileID: 6732959536301073228}
   - component: {fileID: 2490764798172122951}
+  - component: {fileID: 1345443594989210749}
   m_Layer: 0
   m_Name: Spring
   m_TagString: Untagged
@@ -60,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 335f0cbf908dc884daa4f1a877fe7804, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,3 +144,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   springConstant: 5
   maxForce: 20
+--- !u!114 &1345443594989210749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3899234538663895753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228792add6a9c4944b5107c684dec6fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VibratingObject
+  duration: 5
+  material: {fileID: 0}
+  frequency: 25
+  amplitude: 0.05

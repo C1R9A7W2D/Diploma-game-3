@@ -8,13 +8,13 @@ public class ShaderEffectOnCollision : MonoBehaviour
 
     [Tooltip("Общий материал. Добавлять, только если эффект должен распространяться на все объекты с этим шейдером сразу.")]
     [SerializeField]
-    private Material material;
+    protected float duration = 5f;
     [SerializeField]
-    private float duration = 5f;
+    private Material material;
 
     protected Collision2D lastCollision;
+    protected float timer = 0f;
 
-    private float timer = 0f;
     private bool isActive = false;
 
     private void Start()
