@@ -143,11 +143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ca13537a81111c479344a7925ecd6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  material: {fileID: 0}
   duration: 5
+  material: {fileID: 0}
   stretchAmount: 0
-  maxStretch: 1.5
-  stretchRadius: 1
+  maxStretch: 3
+  stretchRadius: 2
   recoverySpeed: 3
 --- !u!114 &7949592580147268453
 MonoBehaviour:

@@ -28,11 +28,10 @@ public class RubberBand : ShaderEffectOnCollision
     {
         base.SetCharacteristics(contactPoint);
 
-        // Интенсивность натяжения зависит от скорости объекта
-        Rigidbody2D rb = lastCollision.rigidbody;
-
-        if (rb != null)
+        if (lastCollision != null)
         {
+            // Интенсивность натяжения зависит от скорости объекта 
+            Rigidbody2D rb = lastCollision.rigidbody;
             stretchAmount = Mathf.Clamp(rb.linearVelocity.magnitude * 0.5f, 0, maxStretch);
         }
         else

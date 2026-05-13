@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FallTrigger : MonoBehaviour
 {
-    readonly Vector2 TELEPORT_POSITION = new Vector2(-0.7f, 5);
+    private Vector2 teleportPosition = new Vector2(-0.7f, 5);
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -19,7 +19,8 @@ public class FallTrigger : MonoBehaviour
 
     private void Teleport(Collider2D collision)
     {
+        teleportPosition.x = Random.Range(-2, 2);
         Ball ball = collision.GetComponent<Ball>();
-        ball.Teleport(TELEPORT_POSITION);
+        ball.Teleport(teleportPosition);
     }
 }
