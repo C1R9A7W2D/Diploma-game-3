@@ -60,19 +60,13 @@ Shader "Custom/FlickingTexture"
             
             fixed4 frag (v2f i) : SV_Target
             {
-                // Основная текстура
                 fixed4 mainColor = tex2D(_MainTex, i.uv);
+                fixed4 maskColor = tex2D(_Mask, i.uv);    
                 
-                // Маска мигания
-                fixed4 maskColor = tex2D(_Mask, i.uv);
-                
-                // Применяем маску
                 fixed4 flashEffect = maskColor * _IsActive * _Intensity * _Color;
-                
-                // Комбинируем
+
                 fixed4 finalColor = mainColor + flashEffect;
-                finalColor.a = mainColor.a;
-                
+                finalColor.a = mainColor.a;              
                 return finalColor;
             }
             ENDCG
