@@ -89,15 +89,8 @@ public class ShaderEffectOnCollision : MonoBehaviour
 
     public void OnMouseDown()
     {
-        Vector2 clickPosition = GetMouseWorldPosition();
+        Vector2 clickPosition = MouseMethods.GetMouseWorldPosition();
         ActivateShader(clickPosition);
-    }
-
-    private static Vector2 GetMouseWorldPosition()
-    {
-        Vector3 mouseScreenPos = Input.mousePosition;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        return (Vector2)mouseWorldPos;
     }
 
     private void ActivateShader(Vector2 contactPoint)
