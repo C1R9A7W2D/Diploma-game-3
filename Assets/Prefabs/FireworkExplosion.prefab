@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireworkExplosion
   particle: {fileID: 2020696658484780965, guid: 49330ad3e92ef0c42b076a860af7d28d, type: 3}
+  availablePalettes:
+  - {fileID: 11400000, guid: 9b685e4e5cbf9e34f8208a63ac2d71c6, type: 2}
+  - {fileID: 11400000, guid: 59a7fa85737185b4ea2d0a3ca9df2fac, type: 2}
+  - {fileID: 11400000, guid: d3405d891b118b24ba025c00caea2cc5, type: 2}
