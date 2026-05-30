@@ -93,7 +93,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 0.4431373, g: 0.40784317, b: 0.6627451, a: 1}
-    - _ContactPoint: {r: -6.965743, g: 0.49755275, b: 0, a: 0}
+    - _ContactPoint: {r: 2.3017578, g: -4.8816514, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _WaveContactPoint: {r: 0.5, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

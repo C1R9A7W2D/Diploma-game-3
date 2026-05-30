@@ -2,25 +2,35 @@ using UnityEngine;
 
 public class FallTrigger : MonoBehaviour
 {
-    private Vector2 teleportPosition = new Vector2(-0.7f, 5);
+    private Vector2 teleportPosition = new Vector2(1.3f, 5);
+    private Collider2D currentCollision;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (IsBall(collision))
-        {
-            Teleport(collision);
-        }
+        SetCollision(collision);
+        if (IsBall())
+            Teleport();
+        SetCollisionNull();
     }
 
-    private static bool IsBall(Collider2D collision)
+    private void SetCollision(Collider2D collision)
     {
-        return collision.CompareTag("Ball");
+        currentCollision = collision;
     }
 
-    private void Teleport(Collider2D collision)
+    private bool IsBall()
     {
-        teleportPosition.x = Random.Range(-2, 2);
-        Ball ball = collision.GetComponent<Ball>();
+        return currentCollision.CompareTag("Ball");
+    }
+
+    private void Teleport()
+    {
+        Ball ball = currentCollision.GetComponent<Ball>();
         ball.Teleport(teleportPosition);
+    }
+
+    private void SetCollisionNull()
+    {
+        currentCollision = null;
     }
 }
