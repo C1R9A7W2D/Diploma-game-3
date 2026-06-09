@@ -31,14 +31,14 @@ public class ShaderEffectOnCollision : MonoBehaviour
             materialProxy = new MaterialProxy(material);
     }
 
-    protected virtual void SetInitialCharacteristics()
-    {
-        materialProxy.SetFloat("_Duration", duration);
-    }
-
     private bool SeparateEffects()
     {
         return material == null;
+    }
+
+    protected virtual void SetInitialCharacteristics()
+    {
+        materialProxy.SetFloat("_Duration", duration);
     }
 
     void Update()
